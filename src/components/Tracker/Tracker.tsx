@@ -1,32 +1,49 @@
 "use client"
 
 import { Context } from "@/context/ContextProvider"
-import { getStringWithTime } from "@/helpers/getStringWithTime"
-import { useContext } from "react"
+import { getMinFromMs, getSecFromMs } from "@/helpers"
+import { useContext, useEffect } from "react"
+import styles from "./Tracker.module.css"
 
 
 
 export function Tracker () {
 
-    const { state, setState } = useContext(Context)
+    const { curr, ms, isPause, startTime, setMs, finishPomodoro, toggleStartPomodoro } = useContext(Context)
+
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout
+
+        if (!isPause) {
+            timer = setInterval(() => {
+                const elapsedTime = Date.now() - startTime
+                const newRemainingTime = Math.ceil((ms - elapsedTime) / 1000) * 1000
+                if (newRemainingTime < 100) {
+                    finishPomodoro()
+                    return
+                }
+                setMs(newRemainingTime)
+            }, 1000)
+        }
+
+        return () => clearInterval(timer)
+
+    }, [curr, isPause, startTime])
 
 
 
     return(
-        <div className="tracker">
-            <h1>{getStringWithTime(state.seconds)}</h1>
-            {/* <h2>{`It's ${Math.floor(state.curr / 2) + 1} pomodoro`}</h2> */}
-            <button onClick={() => {
-                setState((state: any) => ({ ...state, isPause: !state.isPause, startTime: Date.now() }))
-            }}>{state.isPause ? "START" : "PAUSE"}</button>
-            <button onClick={() => {
-                setState((state: any) => ({ ...state, startTime: Date.now(), curr: state.curr + 1, seconds: state.pomodors[state.curr + 1] * 60000 }))
-                if (state.curr % 2) {
-                    setState((state: any) => ({ ...state, isPause: true }))
-                } else {
-                    setState((state: any) => ({ ...state, isPause: false }))
-                }
-            }}>SKIP</button>
+        <div className={styles.tracker}>
+            <div className={styles.timer}>
+                <h1>{getMinFromMs(ms)}</h1>
+                <h1>:</h1>
+                <h1>{getSecFromMs(ms)}</h1>
+            </div>
+            <div className={styles.buttons}>
+                <button onClick={toggleStartPomodoro}>{isPause ? "START" : "PAUSE"}</button>
+                <button onClick={finishPomodoro}>SKIP</button>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,56 @@
+.tracker {
+    display: grid;
+    gap: 10px;
+}
+
+.timer {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.timer h1 {
+    font-size: 80px;
+}
+
+.timer h1:nth-child(1) {
+    width: 40%;
+    text-align: right;
+}
+
+.timer h1:nth-child(2) {
+    width: 20%;
+    text-align: center;
+}
+
+.timer h1:nth-child(3) {
+    width: 40%;
+    text-align: left;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.buttons button {
+    width: 140px;
+    height: 40px;
+    background: transparent;
+    border: 3px solid var(--light-100);
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    backdrop-filter: brightness(90%);
+}
+
+.buttons button:active {
+    scale: 0.97;
+}

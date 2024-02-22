@@ -1,4 +1,5 @@
 import { Head } from "./Head/Head";
+import { NavBar } from "./NavBar/NavBar";
 import { Tracker } from "./Tracker/Tracker";
 
 
@@ -6,5 +7,6 @@ import { Tracker } from "./Tracker/Tracker";
 
 export {
     Head,
-    Tracker
+    NavBar,
+    Tracker,
 }
