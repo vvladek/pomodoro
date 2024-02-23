@@ -1,6 +1,6 @@
 "use client"
 
-import { Tracker } from "@/components";
+import { LogsInfo, Tracker } from "@/components";
 import { Context } from "@/context/ContextProvider";
 import { useSafeExit } from "@/hooks/useSafeExit";
 import { useContext } from "react";
@@ -19,6 +19,7 @@ export default function Home () {
             backgroundColor: curr % 2 ? "var(--break-color)" : "var(--pomodoro-color)"
         }}>
             <Tracker />
+            <LogsInfo />
         </main>
     );
 }

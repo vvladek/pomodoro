@@ -7,10 +7,10 @@ import { useContext, useEffect } from "react"
 
 export function useSafeExit () {
 
-    const { state } = useContext(Context)
+    const { state, logs } = useContext(Context)
 
 
-    function handleBeforeUnload (e: any): void {
+    function handleBeforeUnload (e: BeforeUnloadEvent): void {
         e.preventDefault()
         e.returnValue = ""
         localStorage.setItem("POMODORO_TRACKER_FOR_MAYO", JSON.stringify({
@@ -18,7 +18,8 @@ export function useSafeExit () {
             curr: state.curr,
             ms: state.ms,
             isPause: false,
-            startTime: 0
+            startTime: 0,
+            logs: logs
         }))
     }
 

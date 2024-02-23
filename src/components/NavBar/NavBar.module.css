@@ -37,10 +37,10 @@
 
 .nav button:nth-child(2) {
     grid-area: 1 / 2 / 2 / 3;
-    width: 27px;
-    height: 27px;
+    width: 26px;
+    height: 26px;
     background-image: url(/pomodoro-reloading.svg);
-    background-size: 27px 27px;
+    background-size: 26px 26px;
 }
 
 .nav h2 {

@@ -42,7 +42,7 @@ export function Tracker () {
             </div>
             <div className={styles.buttons}>
                 <button onClick={toggleStartPomodoro}>{isPause ? "START" : "PAUSE"}</button>
-                <button onClick={finishPomodoro}>SKIP</button>
+                <button onClick={finishPomodoro}>FINISH</button>
             </div>
         </div>
     )

@@ -20,6 +20,7 @@ export function Head () {
                 href={curr % 2 ? "/break-icon.svg" : "/pomodoro-icon.svg"}
                 type="image/x-icon"
             />
+            <meta name="theme-color" content={curr % 2 ? "#36a36a" : "#d04643"} />
         </head>
     )
 }

@@ -1,0 +1,12 @@
+.logs {
+    display: grid;
+    place-content: start center;
+    gap: 15px;
+    width: 300px;
+    background: var(--light-100);
+    border-radius: 7px;
+    padding: 30px;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+}

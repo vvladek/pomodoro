@@ -17,6 +17,10 @@
     transition: all 0.35s ease-in-out;
 }
 
+body {
+    overflow: hidden;
+}
+
 main {
     display: grid;
     place-content: center;
