@@ -1,38 +1,42 @@
+import { IState, IPomodoro } from "@/context/initialContextData"
 
 
-export type TLog = {
-    curr: number;
-    status: "start" | "finish";
-    timeStamp: string;
-}
 
-
-export type TPomodoroState = {
-    pomodoros: number[];
-    curr: number;
-    ms: number;
-    isPause: boolean;
-    startTime: number;
-}
-
-
-export function isLogType(obj: any): obj is TLog {
+export function isPomodoroInterface(obj: any): obj is IPomodoro {
     return (
-        typeof obj === "object" &&
-        "curr" in obj && typeof obj.curr === "number" &&
-        "status" in obj && (obj.status === "start" || obj.status === "finish") &&
-        "timeStamp" in obj && typeof obj.timeStamp === "string"
+        typeof obj === 'object' &&
+        'round' in obj && typeof obj.round === 'number' &&
+        'type' in obj && (obj.type === 'pomodoro' || obj.type === 'break') &&
+        'duration' in obj && typeof obj.duration === 'number' &&
+        'status' in obj && (obj.status === 'ready' || obj.status === 'started' || obj.status === 'finished') &&
+        'startTime' in obj && (typeof obj.startTime === 'string' || obj.startTime === null) &&
+        'finishTime' in obj && (typeof obj.finishTime === 'string' || obj.finishTime === null)
     );
 }
 
 
-export function isPomodoroState(obj: any): obj is TPomodoroState {
+
+export function isIPomodoroArray(obj: any): obj is IPomodoro[] {
+    if (!Array.isArray(obj)) return false
+    for (const item of obj) {
+        if (!isPomodoroInterface(item)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+export function isStateInterface(obj: any): obj is IState {
     return (
         typeof obj === "object" &&
-        "pomodoros" in obj && Array.isArray(obj.pomodoros) &&
-        "curr" in obj && typeof obj.curr === "number" &&
+        "pointer" in obj && typeof obj.pointer === "number" &&
+        "startTime" in obj && typeof obj.startTime === "number" &&
         "ms" in obj && typeof obj.ms === "number" &&
         "isPause" in obj && typeof obj.isPause === "boolean" &&
-        "startTime" in obj && typeof obj.startTime === "number"
+        "isLogVisible" in obj && typeof obj.isLogVisible === "boolean" &&
+        "isSound" in obj && typeof obj.isSound === "boolean" &&
+        "isSettingsVisible" in obj && typeof obj.isSettingsVisible === "boolean"
     )
 }

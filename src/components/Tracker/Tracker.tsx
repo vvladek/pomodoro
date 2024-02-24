@@ -9,7 +9,7 @@ import styles from "./Tracker.module.css"
 
 export function Tracker () {
 
-    const { curr, ms, isPause, startTime, setMs, finishPomodoro, toggleStartPomodoro } = useContext(Context)
+    const { pointer, ms, isPause, startTime, setMs, finishPomodoro, toggleStartPomodoro } = useContext(Context)
 
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export function Tracker () {
 
         return () => clearInterval(timer)
 
-    }, [curr, isPause, startTime])
+    }, [pointer, isPause, startTime])
 
 
 

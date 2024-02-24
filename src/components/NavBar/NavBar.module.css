@@ -1,9 +1,10 @@
 .nav {
-    display: grid;
-    grid-template: 1fr / repeat(12, 1fr);
-    place-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     height: 60px;
+    padding: 0 30px;
     position: fixed;
     top: 0;
 }
@@ -11,8 +12,6 @@
 .nav button {
     width: 30px;
     height: 30px;
-    background: url() no-repeat center;
-    background-size: 30px 30px;
     cursor: pointer;
     transition: all 0.05s ease-in-out;
 }
@@ -30,28 +29,29 @@
     opacity: 0.75;
 }
 
-.nav button:nth-child(1) {
-    grid-area: 1 / 1 / 2 / 2;
-    background-image: url(/pomodoro-settings.svg);
+.nav .settings {
+    background: url(/pomodoro-settings.svg) no-repeat center;
+    background-size: 30px 30px;
 }
 
-.nav button:nth-child(2) {
-    grid-area: 1 / 2 / 2 / 3;
-    width: 26px;
-    height: 26px;
-    background-image: url(/pomodoro-reloading.svg);
-    background-size: 26px 26px;
+.nav .reload {
+    width: 25px;
+    height: 25px;
+    background: url(/pomodoro-reloading.svg) no-repeat center;
+    background-size: 25px 25px;
+    position: absolute;
+    top: 17px;
+    left: 80px;
 }
 
 .nav h2 {
-    grid-area: 1 / 6 / 2 / 8;
     background: url(/pomodoro.svg) no-repeat left center;
     background-size: 30px 30px;
     padding-left: 40px;
     font-size: 40px;
 }
 
-.nav button:nth-child(4) {
-    grid-area: 1 / 12 / 2 / 13;
-    background-image: url(/pomodoro-list.svg);
+.nav .logs {
+    background: url(/pomodoro-list.svg) no-repeat center;
+    background-size: 30px 30px;
 }

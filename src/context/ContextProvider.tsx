@@ -1,7 +1,8 @@
 "use client"
 
-import { TLog, TPomodoroState, getCurrentPomodoro, isPomodoroState } from "@/helpers"
 import { createContext, useEffect, useState } from "react"
+import { IPomodoro, pomodoros, IState, initialState } from "./initialContextData"
+import { isIPomodoroArray, isStateInterface } from "@/helpers"
 
 
 
@@ -9,47 +10,27 @@ export const Context = createContext<any>(null)
 
 
 
-const initialState: TPomodoroState = {
-    pomodoros: [50, 10, 50, 10, 50, 10, 50, 20, 50, 10, 50, 10, 50, 10, 50, 20],
-    curr: 0,
-    ms: 50 * 60000,
-    isPause: true,
-    startTime: Date.now()
-}
-
-
-
 export function ContextProvider ({ children }: Readonly<{ children: React.ReactNode }>) {
 
-
-    const [state, setState] = useState<TPomodoroState>(initialState)
-    const [logs, setLogs] = useState<TLog[]>([])
-    const [isLogVisible, setIsLogVisible] = useState<boolean>(false)
+    const [db, setDb] = useState<IPomodoro[]>(pomodoros)
+    const [state, setState] = useState<IState>(initialState)
 
 
     useEffect(() => {
         const localStorageData = localStorage.getItem("POMODORO_TRACKER_FOR_MAYO")
         if (localStorageData) {
             const data = JSON.parse(localStorageData)
-            if (isPomodoroState(data)) {
-                setState({
-                    pomodoros: data.pomodoros,
-                    curr: data.curr,
-                    ms: data.ms,
-                    isPause: false,
-                    startTime: Date.now()
-                })
-            }
-            const currentPomodoro = getCurrentPomodoro(data.curr)
-            const lastLog = data.logs[data.logs.length - 1]
-            if (!lastLog || currentPomodoro !== lastLog.curr) {
-                setLogs([...data.logs, { curr: currentPomodoro, status: "start", timeStamp: Date() }])
-            } else {
-                setLogs([...data.logs])
-            }
+            if (isStateInterface(data.state)) setState({ ...data.state, isPause: false, startTime: Date.now() })
+            if (isIPomodoroArray(data.db)) setDb(data.db.map((item: IPomodoro, i: number) => {
+                if (i === data.state.pointer && item.status != "started") return {
+                    ...item,
+                    status: "started",
+                    startTime: Date()
+                }
+                return item
+            }))
         }
     }, [])
-
 
 
     function setMs (milliseconds: number): void {
@@ -57,49 +38,61 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
     }
     
     function finishPomodoro (): void {
-        const next = state.curr + 1 < state.pomodoros.length ? state.curr + 1 : 0;
+        const pointer = state.pointer
+        const nextPointer = pointer + 1 < db.length ? pointer + 1 : 0
         setState(state => ({
             ...state,
-            curr: next,
-            ms: state.pomodoros[next] * 60000,
-            isPause: state.curr % 2 ? true : false,
+            pointer: nextPointer,
+            ms: db[nextPointer].duration,
+            isPause: db[pointer].type === "break" ? true : false,
             startTime: Date.now(),
+            isSound: true
         }))
-        if (!(state.curr % 2)) {
-            setLogs([...logs, { curr: getCurrentPomodoro(state.curr), status: "finish", timeStamp: Date() }])
-        }
+        setDb(db.map((item, i) => {
+            if (i === pointer) return {
+                ...item,
+                status: "finished",
+                startTime: item.startTime ? item.startTime : Date(),
+                finishTime: Date()
+            }
+            if (i === pointer + 1 && item.type === "break") return { ...item, status: "started", startTime: Date() }
+            return item
+        }))
+        setTimeout(() => {
+            setState(state => ({ ...state, isSound: false }))
+        }, 100)
     }
 
     function toggleStartPomodoro (): void {
-        setState(state => ({
-            ...state,
-            isPause: !state.isPause,
-            startTime: Date.now()
-        }))
-        const currentPomodoro = getCurrentPomodoro(state.curr)
-        const lastLog = logs[logs.length - 1]
-        if (!lastLog || currentPomodoro !== lastLog.curr) {
-            setLogs([...logs, { curr: currentPomodoro, status: "start", timeStamp: Date() }])
+        setState(state => ({ ...state, isPause: !state.isPause, startTime: Date.now() }))
+        if (db[state.pointer].status === "ready") {
+            setDb(db.map((item, i) => {
+                if (i === state.pointer) return { ...item, status: "started", startTime: Date() }
+                return item
+            }))
         }
     }
 
     function reloadPomodoro (): void {
+        setDb(pomodoros)
         setState(initialState)
-        setLogs([])
+    }
+
+    function toggleLogVisibility (): void {
+        setState(state => ({ ...state, isLogVisible: !state.isLogVisible}))
     }
 
 
     return(
         <Context.Provider value={{
+            db,
             ...state,
+            state,
             setMs,
             finishPomodoro,
             toggleStartPomodoro,
             reloadPomodoro,
-            state,
-            logs,
-            isLogVisible,
-            setIsLogVisible
+            toggleLogVisibility
         }}>
             { children }
         </Context.Provider>

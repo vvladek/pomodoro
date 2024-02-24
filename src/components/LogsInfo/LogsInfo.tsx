@@ -1,15 +1,16 @@
 "use client"
 
-import { useContext } from "react"
+import { Fragment, useContext } from "react"
 import { Context } from "@/context/ContextProvider"
-import { TLog, getLogTime } from "@/helpers"
+import { getLogTime } from "@/helpers"
+import { IPomodoro } from "@/context/initialContextData"
 import styles from "./LogsInfo.module.css"
 
 
 
 export function LogsInfo () {
 
-    const { logs, isLogVisible } = useContext(Context)
+    const { db, isLogVisible } = useContext(Context)
 
 
     return(
@@ -17,14 +18,31 @@ export function LogsInfo () {
             translate: isLogVisible ? "" : "150%"
         }}>
             {
-                logs.map((log: TLog) => {
-                    return(
-                        <div className={styles.log} key={log.timeStamp}>
+                db.map((log: IPomodoro, i: number) => {
+                    if (log.status === "finished" && log.type != "break") return(
+                        <Fragment key={i + log.status}>
+                            <div className={styles.log}>
+                                <h5 style={{
+                                    color: "var(--pomodoro-color)"
+                                }}>
+                                    {`Pomodoro ${log.round} started at ${getLogTime(log.startTime)}`}
+                                </h5>
+                            </div>
+                            <div className={styles.log}>
+                                <h5 style={{
+                                    color: "var(--break-color)"
+                                }}>
+                                    {`Pomodoro ${log.round} finished at ${getLogTime(log.finishTime)}`}
+                                </h5>
+                            </div>
+                        </Fragment>   
+                    )
+                    else if (log.status === "started" && log.type != "break") return(
+                        <div className={styles.log} key={i + log.status}>
                             <h5 style={{
-                                color: log.status === "start" ? "var(--pomodoro-color)" : "var(--break-color)",
-                                textAlign: "center"
+                                color: "var(--pomodoro-color)",
                             }}>
-                                {`Pomodoro ${log.curr} ${log.status}ed at ${getLogTime(log.timeStamp)}`}
+                                {`Pomodoro ${log.round} started at ${getLogTime(log.startTime)}`}
                             </h5>
                         </div>
                     )

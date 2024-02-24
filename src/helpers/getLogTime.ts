@@ -1,6 +1,8 @@
 
 
-export function getLogTime (timeStamp: string): string {
+export function getLogTime (timeStamp: string | null): string {
+
+    if (!timeStamp) return `Error getting time`
 
     const date = new Date(timeStamp)
     const hours = date.getHours()

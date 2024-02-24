@@ -9,17 +9,18 @@ import { useContext } from "react";
 
 export default function Home () {
 
-    const { curr } = useContext(Context)
+    const { pointer, isSound } = useContext(Context)
 
     useSafeExit()
 
 
     return (
         <main style={{
-            backgroundColor: curr % 2 ? "var(--break-color)" : "var(--pomodoro-color)"
+            backgroundColor: pointer % 2 ? "var(--break-color)" : "var(--pomodoro-color)"
         }}>
             <Tracker />
             <LogsInfo />
+            <audio src="audio/meow.mp3" preload="auto" ref={meow => isSound && meow?.play()} />
         </main>
     );
 }
