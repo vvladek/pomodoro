@@ -3,9 +3,7 @@ export interface IState {
     startTime: number;
     ms: number;
     isPause: boolean;
-    isLogVisible: boolean;
     isSound: boolean;
-    isSettingsVisible: boolean;
 }
 
 
@@ -24,9 +22,7 @@ export const initialState: IState = {
     startTime: Date.now(),
     ms: 50 * 60000,
     isPause: true,
-    isLogVisible: false,
-    isSound: false,
-    isSettingsVisible: true
+    isSound: false
 }
 
 

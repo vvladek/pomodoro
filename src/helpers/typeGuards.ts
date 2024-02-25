@@ -35,8 +35,6 @@ export function isStateInterface(obj: any): obj is IState {
         "startTime" in obj && typeof obj.startTime === "number" &&
         "ms" in obj && typeof obj.ms === "number" &&
         "isPause" in obj && typeof obj.isPause === "boolean" &&
-        "isLogVisible" in obj && typeof obj.isLogVisible === "boolean" &&
-        "isSound" in obj && typeof obj.isSound === "boolean" &&
-        "isSettingsVisible" in obj && typeof obj.isSettingsVisible === "boolean"
+        "isSound" in obj && typeof obj.isSound === "boolean"
     )
 }

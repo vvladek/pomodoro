@@ -78,10 +78,6 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
         setState(initialState)
     }
 
-    function toggleLogVisibility (): void {
-        setState(state => ({ ...state, isLogVisible: !state.isLogVisible}))
-    }
-
 
     return(
         <Context.Provider value={{
@@ -91,8 +87,7 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
             setMs,
             finishPomodoro,
             toggleStartPomodoro,
-            reloadPomodoro,
-            toggleLogVisibility
+            reloadPomodoro
         }}>
             { children }
         </Context.Provider>

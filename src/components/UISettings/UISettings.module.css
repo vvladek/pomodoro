@@ -1,0 +1,39 @@
+.settings {
+    display: grid;
+    place-content: start;
+    gap: 5px;
+    width: 350px;
+    height: calc(100dvh - 60px);
+    padding: 30px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 10px -5px #000000;
+    position: absolute;
+    top: 30px;
+    left: -300px;
+}
+
+.settings:hover {
+    translate: 300px;
+}
+
+.settings button {
+    width: 90px;
+    height: 25px;
+    font-size: 10px;
+    border: 2px solid var(--light-100);
+    font-weight: 600;
+}
+
+.inputContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.settings .reload {
+    width: 260px;
+    height: 40px;
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}

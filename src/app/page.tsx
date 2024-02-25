@@ -1,6 +1,6 @@
 "use client"
 
-import { LogsInfo, Tracker } from "@/components";
+import { LogsInfo, Tracker, UISettings } from "@/components";
 import { Context } from "@/context/ContextProvider";
 import { useSafeExit } from "@/hooks/useSafeExit";
 import { useContext } from "react";
@@ -9,7 +9,7 @@ import { useContext } from "react";
 
 export default function Home () {
 
-    const { pointer, isSound } = useContext(Context)
+    const { db, pointer, isSound } = useContext(Context)
 
     useSafeExit()
 
@@ -18,8 +18,10 @@ export default function Home () {
         <main style={{
             backgroundColor: pointer % 2 ? "var(--break-color)" : "var(--pomodoro-color)"
         }}>
+            <h2>{db[pointer].round}</h2>
             <Tracker />
             <LogsInfo />
+            <UISettings />
             <audio src="audio/meow.mp3" preload="auto" ref={meow => isSound && meow?.play()} />
         </main>
     );

@@ -1,5 +1,5 @@
 import { ContextProvider } from "@/context/ContextProvider"
-import { Head, NavBar } from "@/components"
+import { Head } from "@/components"
 import "./globals.css"
 
 
@@ -11,7 +11,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <ContextProvider>
                 <Head />
                 <body>
-                    <NavBar />
                     {children}
                 </body>
             </ContextProvider>

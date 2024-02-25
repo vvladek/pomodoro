@@ -1,14 +1,14 @@
-import { Head } from "./Head/Head";
-import { LogsInfo } from "./LogsInfo/LogsInfo";
-import { NavBar } from "./NavBar/NavBar";
-import { Tracker } from "./Tracker/Tracker";
+import { Head } from "./Head/Head"
+import { LogsInfo } from "./LogsInfo/LogsInfo"
+import { Tracker } from "./Tracker/Tracker"
+import { UISettings } from "./UISettings/UISettings"
 
 
 
 
 export {
     Head,
-    NavBar,
     Tracker,
-    LogsInfo
+    LogsInfo,
+    UISettings
 }

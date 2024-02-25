@@ -1,12 +1,18 @@
 .logs {
     display: grid;
-    place-content: start center;
+    place-content: start;
     gap: 15px;
-    width: 300px;
-    background: var(--light-100);
-    border-radius: 7px;
-    padding: 30px;
+    width: 350px;
+    max-height: calc(100dvh - 60px);
+    padding: 60px 0 60px 60px;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0 0 10px -5px #000000;
     position: absolute;
-    top: 60px;
-    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -300px;
+}
+
+.logs:hover {
+    translate: -300px;
 }
