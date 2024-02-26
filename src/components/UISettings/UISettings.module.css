@@ -1,10 +1,10 @@
 .settings {
-    display: grid;
-    place-content: start;
-    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 350px;
     height: calc(100dvh - 60px);
-    padding: 30px;
+    padding: 30px 60px 30px 30px;
     border-radius: 0 10px 10px 0;
     box-shadow: 0 0 10px -5px #000000;
     position: absolute;
@@ -16,10 +16,17 @@
     translate: 300px;
 }
 
+.settings form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
 .settings button {
     width: 90px;
-    height: 25px;
-    font-size: 10px;
+    height: 30px;
+    font-size: 11px;
     border: 2px solid var(--light-100);
     font-weight: 600;
 }
@@ -27,13 +34,14 @@
 .inputContainer {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    width: 100%;
 }
 
-.settings .reload {
-    width: 260px;
-    height: 40px;
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
+.inputContainer:nth-child(16) {
+    padding-bottom: 20px;
+}
+
+.settings h5 {
+    text-align: center;
+    font-weight: 400;
 }

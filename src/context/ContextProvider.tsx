@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from "react"
 import { IPomodoro, pomodoros, IState, initialState } from "./initialContextData"
-import { isIPomodoroArray, isStateInterface } from "@/helpers"
+import { isIPomodoroArray, isInputValueValid, isStateInterface } from "@/helpers"
 
 
 
@@ -61,6 +61,7 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
         setTimeout(() => {
             setState(state => ({ ...state, isSound: false }))
         }, 100)
+        if (nextPointer === 0 && db[pointer].type === "break") setDb(db.map(item => ({ ...item, status: "ready" })))
     }
 
     function toggleStartPomodoro (): void {
@@ -73,9 +74,12 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
         }
     }
 
-    function reloadPomodoro (): void {
-        setDb(pomodoros)
-        setState(initialState)
+    function setNewDb (elements: any): void {
+        setDb(pomodoros.map((item: IPomodoro, i: number) => {
+            if (isInputValueValid(elements[i].value)) return { ...item, duration: Number(elements[i].value) * 60000 }
+            return item
+        }))
+        setState({ ...initialState, ms: (isInputValueValid(elements[0].value) ? Number(elements[0].value) : 50) * 60000 })
     }
 
 
@@ -87,7 +91,7 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
             setMs,
             finishPomodoro,
             toggleStartPomodoro,
-            reloadPomodoro
+            setNewDb
         }}>
             { children }
         </Context.Provider>
