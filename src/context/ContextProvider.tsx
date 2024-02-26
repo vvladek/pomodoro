@@ -36,10 +36,24 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
     function setMs (milliseconds: number): void {
         setState(state => ({ ...state, ms: milliseconds }))
     }
+
+
+    function reloadProgress (): void {
+        setState({ ...initialState, ms: db[0].duration})
+        setDb(db.map(item => ({ ...item, status: "ready", startTime: null, finishTime: null })))
+        setTimeout(() => {
+            setState(state => ({ ...state, isSound: false }))
+        }, 100)
+    }
     
+
     function finishPomodoro (): void {
         const pointer = state.pointer
         const nextPointer = pointer + 1 < db.length ? pointer + 1 : 0
+        if (nextPointer === 0 && db[pointer].type === "break") {
+            reloadProgress()
+            return
+        }
         setState(state => ({
             ...state,
             pointer: nextPointer,
@@ -61,8 +75,8 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
         setTimeout(() => {
             setState(state => ({ ...state, isSound: false }))
         }, 100)
-        if (nextPointer === 0 && db[pointer].type === "break") setDb(db.map(item => ({ ...item, status: "ready" })))
     }
+
 
     function toggleStartPomodoro (): void {
         setState(state => ({ ...state, isPause: !state.isPause, startTime: Date.now() }))
@@ -74,6 +88,7 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
         }
     }
 
+
     function setNewDb (elements: any): void {
         setDb(pomodoros.map((item: IPomodoro, i: number) => {
             if (isInputValueValid(elements[i].value)) return { ...item, duration: Number(elements[i].value) * 60000 }
@@ -83,16 +98,9 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
     }
 
 
+
     return(
-        <Context.Provider value={{
-            db,
-            ...state,
-            state,
-            setMs,
-            finishPomodoro,
-            toggleStartPomodoro,
-            setNewDb
-        }}>
+        <Context.Provider value={{ db, ...state, state, setMs, finishPomodoro, toggleStartPomodoro, reloadProgress, setNewDb }}>
             { children }
         </Context.Provider>
     )

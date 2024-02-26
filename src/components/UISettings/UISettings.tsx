@@ -32,6 +32,7 @@ export function UISettings () {
                             <div className={styles.inputContainer} key={i + item.status}>
                                 <p>{`${item.type === "break" ? "Break" : "Pomodoro"} ${item.round} duration`}</p>
                                 <input
+                                    autoComplete="off"
                                     name={`${item.type}-${item.round}`}
                                     type="text"
                                     placeholder={`${item.duration / 60000}`}
