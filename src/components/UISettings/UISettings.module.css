@@ -45,3 +45,9 @@
     text-align: center;
     font-weight: 400;
 }
+
+@media (max-width: 1000px) {
+    .settings {
+        display: none;
+    }
+}

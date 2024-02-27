@@ -1,9 +1,9 @@
 "use client"
 
-import { LogsInfo, Tracker, UISettings } from "@/components";
-import { Context } from "@/context/ContextProvider";
-import { useSafeExit } from "@/hooks/useSafeExit";
-import { useContext } from "react";
+import { useContext } from "react"
+import { Context } from "@/context/ContextProvider"
+import { LogsInfo, Tracker, UISettings } from "@/components"
+import { useSafeExit } from "@/hooks/useSafeExit"
 
 
 
