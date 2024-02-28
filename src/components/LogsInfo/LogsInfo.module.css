@@ -3,12 +3,12 @@
     flex-direction: column;
     justify-content: space-between;
     width: 350px;
-    height: calc(100dvh - 60px);
+    height: calc(100dvh - 30px);
     padding: 30px 30px 30px 60px;
     border-radius: 10px 0 0 10px;
     box-shadow: 0 0 10px -5px #000000;
     position: absolute;
-    top: 30px;
+    top: 15px;
     right: -300px;
 }
 
@@ -19,7 +19,7 @@
 .logs .container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     width: 100%;
 }
 
