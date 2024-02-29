@@ -2,7 +2,7 @@
 
 import { useContext } from "react"
 import { Context } from "@/context/ContextProvider"
-import { LogsInfo, Tracker, UISettings } from "@/components"
+import { BigBreakWidget, LogsInfo, Tracker, UISettings } from "@/components"
 import { useSafeExit } from "@/hooks/useSafeExit"
 
 
@@ -23,6 +23,7 @@ export default function Home () {
             <LogsInfo />
             <UISettings />
             <audio src="audio/meow.mp3" preload="auto" ref={meow => isSound && meow?.play()} />
+            <BigBreakWidget />
         </main>
     );
 }

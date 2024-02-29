@@ -39,7 +39,7 @@ export function ContextProvider ({ children }: Readonly<{ children: React.ReactN
 
 
     function reloadProgress (): void {
-        setState({ ...initialState, ms: db[0].duration, isSound: true })
+        setState({ ...initialState, startTime: Date.now(), ms: db[0].duration, isSound: true })
         setDb(db.map(item => ({ ...item, status: "ready", startTime: null, finishTime: null })))
         setTimeout(() => {
             setState(state => ({ ...state, isSound: false }))

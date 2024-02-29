@@ -1,0 +1,19 @@
+.widget {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    position: fixed;
+    bottom: 15px;
+    opacity: 0.75;
+}
+
+.widget p {
+    font-size: 12px;
+}
+
+@media (max-width: 1000px) {
+    .widget {
+        display: none;
+    }
+}
