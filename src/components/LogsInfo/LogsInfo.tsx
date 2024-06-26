@@ -26,7 +26,7 @@ export function LogsInfo () {
                                 </div>
                                 <div className={styles.log}>
                                     <p>{`Pomodoro ${log.round} finished at`}</p>
-                                    <p>{`${getLogTime(log.startTime)}`}</p>
+                                    <p>{`${getLogTime(log.finishTime)}`}</p>
                                 </div>
                             </Fragment>
                         )
