@@ -1,6 +1,6 @@
 
 
-export function getLogTime (timeStamp: string | null): string {
+export function getLogTime (timeStamp: string | number | null): string {
 
     if (!timeStamp) return `Error getting time`
 

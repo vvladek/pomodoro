@@ -9,7 +9,7 @@ import styles from "./BigBreakWidget.module.css"
 
 export function BigBreakWidget () {
 
-    const { db, pointer, startTime, isPause } = useContext(Context)
+    const { db, pointer, isPause, ms } = useContext(Context)
 
 
     function getWidgetTime (pomodoro: 4 | 8): string {
@@ -18,7 +18,7 @@ export function BigBreakWidget () {
         for (let i = pointer; i <= (pomodoro - 1) * 2; i++) {
             totalTime += db[i].duration
         }
-        const endTime = startTime + totalTime
+        const endTime = Date.now() + totalTime - (db[pointer].duration - ms)
 
         return `${pomodoro}th pomodoro will end at ${getLogTime(endTime)}`
     }
